@@ -6,6 +6,7 @@ MISSINGSONGS=()
 URLS=()
 SONGFOUND=0
 #Making array of songs without mp3 and mp4 downloaded
+mkdir -p songs
 for d in *; do
 	cd "$d"
 	SONGFOUND=0
