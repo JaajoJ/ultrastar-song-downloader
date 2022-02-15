@@ -13,5 +13,5 @@ How to use?
 
 How does it work?
 - Recursively checks if folder is missing mp3 and mp4
-- Downloads mp4 with youtube-dl and converts it to mp3 with ffmpeg so you have both.
+- Downloads mp4 with youtube-dl and converts it to mp3 with ffmpeg so you have both. (the url is given manually when prompted)
 - Lastly removes old #VIDEO and #MP3 from the .txt and adds the correct .mp3 and .mp4 files to #VIDEO: and #MP3: lines
