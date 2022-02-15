@@ -57,8 +57,8 @@ for value in "${MISSINGSONGS[@]}"; do
 	grep -v '^#VIDEO:' *".txt" > temp && mv temp *".txt"
 	grep -v '^#MP3:' *".txt" > temp && mv temp *".txt"
 
-	echo '#MP3:download.mp3' | cat - *".txt" > temp && mv temp *".txt"
-	echo '#VIDEO:download.mp4' | cat - *".txt" > temp && mv temp *".txt"
+	echo -e "#MP3:download.mp3\n$(cat *.txt)" > temp && mv temp *".txt"
+	echo -e "#VIDEO:download.mp4\n$(cat *.txt)" > temp && mv temp *".txt"
 	COUNT=$COUNT+1
 	cd ..
 done
