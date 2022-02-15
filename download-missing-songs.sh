@@ -17,18 +17,18 @@ SONGFOUND=0
 for d in *; do
 	cd "$d"
 	SONGFOUND=0
-
 	for f in *; do
 		echo "$f"
-		if [[ "${f: -4}" == ".mp3" ]] | [[ "${f: -4}" == ".mp4" ]]; then
-		SONGFOUND=1
+		#check for mp3
+		if [[ "${f: -4}" == ".mp3" ]]; then
+			SONGFOUND=1
 		fi
 	done;
 
 	if [[ "$SONGFOUND" == 0 ]]; then
 		MISSINGSONGS+=("$d")
 	fi
-	echo "download song? "$SONGFOUND
+	echo "mp3 found: "$SONGFOUND
 	cd ..
 
 done;
@@ -50,16 +50,18 @@ for value in "${MISSINGSONGS[@]}"; do
 	cd "$value"
 	echo $PWD
 	echo "${URLS[$COUNT]}"
-	youtube-dl --format mp4 "${URLS[$COUNT]}"
-	ffmpeg -i *"${URLS[$COUNT]}".mp4 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "${URLS[$COUNT]}".mp3
-	mv *.mp4 "${URLS[$COUNT]}".mp4
+	youtube-dl -o download.mp4 --format mp4 "${URLS[$COUNT]}"
+	ffmpeg -i *.mp4 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 download.mp3
 
 	#First remove then add the songs
 	grep -v '^#VIDEO:' *".txt" > temp && mv temp *".txt"
 	grep -v '^#MP3:' *".txt" > temp && mv temp *".txt"
 
-	echo '#MP3:'"${URLS[$COUNT]}"".mp3" | cat - *".txt" > temp && mv temp *".txt"
-	echo '#VIDEO:'"${URLS[$COUNT]}"".mp4" | cat - *".txt" > temp && mv temp *".txt"
+	echo '#MP3:download.mp3' | cat - *".txt" > temp && mv temp *".txt"
+	echo '#VIDEO:download.mp4' | cat - *".txt" > temp && mv temp *".txt"
 	COUNT=$COUNT+1
 	cd ..
 done
+
+cd ..
+ls songs/ > songlist.txt
