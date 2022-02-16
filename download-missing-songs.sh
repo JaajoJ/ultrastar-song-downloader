@@ -13,21 +13,35 @@ cd songs/
 MISSINGSONGS=()
 URLS=()
 SONGFOUND=0
+IMAGEFOUND=0
 #Making array of songs without mp3 and mp4 downloaded
 for d in *; do
 	cd "$d"
 	SONGFOUND=0
+	IMAGEFOUND=0
 	for f in *; do
 		echo "$f"
 		#check for mp3
 		if [[ "${f: -4}" == ".mp3" ]]; then
 			SONGFOUND=1
 		fi
+		
+		if [[ "${f: -4}" == ".jpg" ]]; then
+			IMAGEFOUND=1
+		fi
 	done;
-
+	
+	#Adds the missing song to list
 	if [[ "$SONGFOUND" == 0 ]]; then
 		MISSINGSONGS+=("$d")
 	fi
+	#Downloads cover image if missing by asking for url
+	if [[ "$IMAGEFOUND" == 0 ]]; then
+		echo "Cover IMAGE missing"
+		read -p 'URL: ' IMAGEURL
+		curl $IMAGEURL > "[CO].jpg" 
+	fi
+	
 	echo "mp3 found: "$SONGFOUND
 	cd ..
 
