@@ -9,6 +9,7 @@ How to use?
 1. download .txt files of songs from official websites to songs/ folder which is in the same folder as the script. example folder songs/a-ha - take on me/a-ha - take on me.txt
 2. run the script by running ./ultrastar-song-downloader in the terminal
 3. Give correct urls for the songs
+4. Wait until script ends. It will download .mp4 and convert it to .mp3 and edit .txt file.
 
 
 
