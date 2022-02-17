@@ -19,6 +19,7 @@ for d in *; do
 	cd "$d"
 	SONGFOUND=0
 	IMAGEFOUND=0
+	
 	for f in *; do
 		echo "$f"
 		#check for mp3
@@ -37,6 +38,7 @@ for d in *; do
 	fi
 	#Downloads cover image if missing by asking for url
 	if [[ "$IMAGEFOUND" == 0 ]]; then
+		grep -v '^#COVER:' *".txt" > temp && mv temp *".txt"
 		echo "Cover IMAGE missing"
 		read -p 'URL: ' IMAGEURL
 		curl $IMAGEURL > "[CO].jpg" 
