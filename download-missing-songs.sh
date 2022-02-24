@@ -19,7 +19,6 @@ for d in *; do
 	cd "$d"
 	SONGFOUND=0
 	IMAGEFOUND=0
-	
 	for f in *; do
 		echo "$f"
 		#check for mp3
