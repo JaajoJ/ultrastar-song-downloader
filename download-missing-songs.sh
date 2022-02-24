@@ -59,12 +59,8 @@ do
 done
 
 
-#Going one by one to folder and downloading needed songs
-COUNT=0
-for value in "${MISSINGSONGS[@]}"; do
-	cd "$value"
-	echo $PWD
-	echo "${URLS[$COUNT]}"
+#Going one by one to folder and downloading needed songs in parallel 
+getMP3andMP4(){
 	youtube-dl -o download.mp4 --format mp4 "${URLS[$COUNT]}"
 	ffmpeg -i *.mp4 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 download.mp3
 
@@ -74,6 +70,16 @@ for value in "${MISSINGSONGS[@]}"; do
 
 	echo -e "#MP3:download.mp3\n$(cat *.txt)" > temp && mv temp *".txt"
 	echo -e "#VIDEO:download.mp4\n$(cat *.txt)" > temp && mv temp *".txt"
+}
+
+COUNT=0
+PARALLELDOWNLOADS=8
+for value in "${MISSINGSONGS[@]}"; do
+	cd "$value"
+	echo $PWD
+	echo "${URLS[$COUNT]}"
+	((i=i%N)); ((i++==0)) && wait
+	getMP3andMP4 &
 	COUNT=$COUNT+1
 	cd ..
 done
