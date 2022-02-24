@@ -78,7 +78,7 @@ for value in "${MISSINGSONGS[@]}"; do
 	cd "$value"
 	echo $PWD
 	echo "${URLS[$COUNT]}"
-	((i=i%N)); ((i++==0)) && wait
+	((i=i%PARALLELDOWNLOADS)); ((i++==0)) && wait
 	getMP3andMP4 &
 	COUNT=$COUNT+1
 	cd ..
