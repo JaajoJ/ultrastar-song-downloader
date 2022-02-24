@@ -73,7 +73,7 @@ getMP3andMP4(){
 }
 
 COUNT=0
-PARALLELDOWNLOADS=8
+PARALLELDOWNLOADS=20
 for value in "${MISSINGSONGS[@]}"; do
 	cd "$value"
 	echo $PWD
