@@ -65,15 +65,14 @@ getMP3andMP4(){
 	ffmpeg -i *.mp4 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 download.mp3
 
 	#First remove then add the songs
-	grep -v '^#VIDEO:' *".txt" > temp && mv temp *".txt"
-	grep -v '^#MP3:' *".txt" > temp && mv temp *".txt"
+	
+	sed -i '/#VIDEO:/d' *.txt && sed -i '1 i\#VIDEO:download.mp4' *.txt
+	sed -i '/#MP3:/d' *.txt && sed -i '1 i\#MP3:download.mp3' *.txt
 
-	echo -e "#MP3:download.mp3\n$(cat *.txt)" > temp && mv temp *".txt"
-	echo -e "#VIDEO:download.mp4\n$(cat *.txt)" > temp && mv temp *".txt"
 }
 
 COUNT=0
-PARALLELDOWNLOADS=20
+PARALLELDOWNLOADS=40
 for value in "${MISSINGSONGS[@]}"; do
 	cd "$value"
 	echo $PWD
