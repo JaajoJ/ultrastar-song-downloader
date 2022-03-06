@@ -1,7 +1,7 @@
 # ultrastar-song-downloader
 Download script for downloading mp4 and mp3 files for Ultrastar
 
-You need latest youtube-dl and ffmpeg for the bash script to work.
+You need latest  youtube-dl, sed and ffmpeg for the bash script to work.
 
 You can run the script by putting ./ultrastar-song-downloader which will run an example and create needed folders (songs folder). It can give a little insight on how it works.
 
