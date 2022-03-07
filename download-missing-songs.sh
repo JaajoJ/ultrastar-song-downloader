@@ -37,7 +37,7 @@ for d in *; do
 	fi
 	#Downloads cover image if missing by asking for url
 	if [[ "$IMAGEFOUND" == 0 ]]; then
-		grep -v '^#COVER:' *".txt" > temp && mv temp *".txt"
+		sed -i '/#COVER:/d' *.txt
 		echo "Cover IMAGE missing"
 		read -p 'URL: ' IMAGEURL
 		curl $IMAGEURL > "[CO].jpg" 
