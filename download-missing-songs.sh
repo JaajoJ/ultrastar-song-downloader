@@ -37,6 +37,7 @@ for d in *; do
 	fi
 	#Downloads cover image if missing by asking for url
 	if [[ "$IMAGEFOUND" == 0 ]]; then
+		firefox "https://www.google.com/search?q=$d+album+cover+hd"
 		sed -i '/#COVER:/d' *.txt
 		echo "Cover IMAGE missing"
 		read -p 'URL: ' IMAGEURL
@@ -52,6 +53,7 @@ done;
 for value in "${MISSINGSONGS[@]}"
 do
     	echo ""
+	firefox "https://www.youtube.com/results?search_query=$value"
 	echo "Give youtube url for:"
 	echo $value
 	read INPUT
